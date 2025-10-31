@@ -1,45 +1,73 @@
 @echo off
-:: ==========================================
-:: ä¸€éµä¸Šå‚³ GitHub å‚™ä»½å·¥å…·
-:: é©ç”¨ç’°å¢ƒï¼šWindows + å·²å®‰è£ Git
-:: ä½œè€…ï¼šChatGPT è‡ªå‹•ç”¢ç”Ÿ
-:: ==========================================
+:: =====================================================
+:: ?? ¤@Áä¤W¶Ç GitHub + Firebase + ¦Û°Ê§ó·sª©¥»¸¹ + ¦Û°Ê¶}±Òºô¯¸
+:: =====================================================
 
-:: æª¢æŸ¥æ˜¯å¦åœ¨ Git å°ˆæ¡ˆå…§
+setlocal enabledelayedexpansion
+
+:: ?? ³]©w§Aªº Firebase ºô§}¡]½Ğ¨Ì¹ê»Ú±M®×­×§ï¡^
+set SITE_URL=https://miis-edu-website.web.app
+
+:: ?? ÀË¬d¬O§_¬° Git ±M®×
 git rev-parse --is-inside-work-tree >nul 2>&1
 if errorlevel 1 (
-    echo [éŒ¯èª¤] é€™å€‹è³‡æ–™å¤¾ä¸æ˜¯ Git å°ˆæ¡ˆï¼
-    echo è«‹å…ˆåŸ·è¡Œï¼šgit init
+    echo [¿ù»~] ³o­Ó¸ê®Æ§¨¤£¬O Git ±M®×¡I
+    echo ½Ğ¥ı°õ¦æ git init
     pause
     exit /b
 )
 
-echo ==========================================
-echo ğŸ”„ æ­£åœ¨æº–å‚™ä¸Šå‚³è‡³ GitHub...
-echo ==========================================
-echo.
+:: =====================================================
+:: STEP 1: ¦Û°Ê§ó·s index.html ª©¥»¸¹¡]§ó·s®É¶¡¡^
+:: =====================================================
+echo ?? ¥¿¦b§ó·s index.html ª©¥»¸¹...
 
-:: æ–°å¢æ‰€æœ‰ä¿®æ”¹çš„æª”æ¡ˆ
+set file=index.html
+if not exist %file% (
+    echo [Äµ§i] §ä¤£¨ì index.html¡A¸õ¹Lª©¥»§ó·s¡C
+) else (
+    set "datetime=%date% %time%"
+    powershell -Command "(Get-Content %file%) -replace '<footer>§ó·s®É¶¡¡G.*?</footer>', '<footer>§ó·s®É¶¡¡G%datetime%</footer>' | Set-Content %file%"
+)
+
+:: =====================================================
+:: STEP 2: Git ¾Ş§@
+:: =====================================================
+echo.
+echo ?? ·s¼WÅÜ§ó¤¤...
 git add .
 
-:: è®“ä½¿ç”¨è€…è¼¸å…¥ Commit è¨Šæ¯
-set /p msg=è«‹è¼¸å…¥é€™æ¬¡ä¸Šå‚³çš„èªªæ˜ (é è¨­: æ›´æ–°ç¶²ç«™å…§å®¹)ï¼š 
-if "%msg%"=="" set msg=æ›´æ–°ç¶²ç«™å…§å®¹
+set /p msg=½Ğ¿é¤J³o¦¸¤W¶Ç»¡©ú (¹w³]: ¦Û°Ê§ó·sºô¯¸¤º®e)¡G 
+if "%msg%"=="" set msg=¦Û°Ê§ó·sºô¯¸¤º®e
 
-:: å»ºç«‹ commit
 git commit -m "%msg%"
-
-:: æ¨é€åˆ° GitHub main åˆ†æ”¯
-echo.
-echo ğŸš€ æ­£åœ¨æ¨é€åˆ° GitHub...
+echo ?? ¥¿¦b±À°e¦Ü GitHub...
 git push -u origin main
 
 if %errorlevel%==0 (
-    echo.
-    echo âœ… ä¸Šå‚³å®Œæˆï¼å·²æˆåŠŸåŒæ­¥åˆ° GitHubã€‚
+    echo ? GitHub ¤W¶Ç§¹¦¨¡C
 ) else (
-    echo.
-    echo âŒ ä¸Šå‚³å¤±æ•—ï¼Œè«‹æª¢æŸ¥ç¶²è·¯æˆ–ç™»å…¥ç‹€æ…‹ã€‚
+    echo ? GitHub ¤W¶Ç¥¢±Ñ¡A½ĞÀË¬dºô¸ô©Î±b¸¹¡C
+    pause
+    exit /b
 )
 
+:: =====================================================
+:: STEP 3: Firebase ³¡¸p
+:: =====================================================
+echo.
+echo ??  ¥¿¦b³¡¸p¦Ü Firebase Hosting...
+firebase deploy --only hosting
+
+if %errorlevel%==0 (
+    echo.
+    echo ? Firebase ³¡¸p¦¨¥\¡Iºô¯¸¤w¤W½u¡C
+    echo ?? ºô¯¸ºô§}¡G%SITE_URL%
+    echo ?? ¥¿¦b¦Û°Ê¶}±Òºô¯¸...
+    start %SITE_URL%
+) else (
+    echo ? Firebase ³¡¸p¥¢±Ñ¡A½ĞÀË¬dºô¸ô©Îµn¤Jª¬ºA¡C
+)
+
+echo.
 pause
