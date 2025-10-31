@@ -1,0 +1,16 @@
+<div class="nav">
+  <a href="index.html">返回課程首頁</a>
+  <a href="lesson1.html" id="btn1">Part1</a>
+  <a href="lesson2.html" id="btn2">Part2</a>
+  <a href="lesson3.html" id="btn3">Part3</a>
+  <a href="quiz.html" id="btnQuiz">課後測驗</a>
+</div>
+
+<script>
+  // 自動判斷目前所在頁面並高亮顯示
+  const path = window.location.pathname;
+  if (path.includes("lesson1")) document.getElementById("btn1").classList.add("active");
+  if (path.includes("lesson2")) document.getElementById("btn2").classList.add("active");
+  if (path.includes("lesson3")) document.getElementById("btn3").classList.add("active");
+  if (path.includes("quiz")) document.getElementById("btnQuiz").classList.add("active");
+</script>

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "miis-edu-website",
+    "miis-edu-website": "miis-edu-website"
+  },
+  "targets": {},
+  "etags": {}
+}

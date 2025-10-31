@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 資訊安全教育訓練</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      text-align: center;
+      color: #1a1a1a;
+    }
+
+    /* 導覽列樣式 */
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+    .nav.visible {
+      opacity: 1;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #1a73e8;
+      font-weight: 600;
+      padding: 10px 24px;
+      border: 2px solid #1a73e8;
+      border-radius: 8px;
+      transition: all 0.2s ease-in-out;
+      flex-shrink: 0;
+    }
+    .nav a:hover {
+      background-color: #1a73e8;
+      color: #fff;
+    }
+    .nav a.active {
+      background-color: #1a73e8;
+      color: white;
+    }
+
+    /* 頁首 */
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 40px 10px;
+    }
+    header h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    header h2 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* 課程卡片區 */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 50px auto;
+      max-width: 1000px;
+      padding: 0 16px;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px 20px;
+      width: 220px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.6s forwards;
+    }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+    .card:nth-child(4) { animation-delay: 0.3s; }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #1565c0;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #1a73e8;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    .button:hover {
+      background-color: #155ab6;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 26px;
+      }
+      header h2 {
+        font-size: 16px;
+      }
+      .card {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header>
+    <h1>2025 資訊安全教育訓練</h1>
+    <h2>請依序完成以下單元與課後測驗</h2>
+  </header>
+
+  <div class="card-container">
+    <div class="card">
+      <h3>Part1｜組織宣導</h3>
+      <a href="lesson1.html" class="button">進入 Part1</a>
+    </div>
+
+    <div class="card">
+      <h3>Part2｜個人資訊作業注意事項</h3>
+      <a href="lesson2.html" class="button">進入 Part2</a>
+    </div>
+
+    <div class="card">
+      <h3>Part3｜專案管理的資安作業</h3>
+      <a href="lesson3.html" class="button">進入 Part3</a>
+    </div>
+
+    <div class="card">
+      <h3>📋 課後測驗</h3>
+      <a href="quiz.html" class="button">開始測驗</a>
+    </div>
+  </div>
+
+  <script>
+    // 載入共用導覽列 + 淡入動畫 + 錯誤處理
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(html => {
+        const navbar = document.getElementById("navbar");
+        navbar.innerHTML = html;
+        const nav = navbar.querySelector(".nav");
+        if (nav) setTimeout(() => nav.classList.add("visible"), 50);
+      })
+      .catch(() => {
+        document.getElementById("navbar").innerHTML =
+          "<p style='color:red;'>⚠️ 導覽列載入失敗</p>";
+      });
+  </script>
+</body>
+</html>

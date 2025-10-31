@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>課後測驗｜資訊安全教育訓練</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      text-align: center;
+      color: #1a1a1a;
+    }
+
+    /* 導覽列樣式 */
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    .nav.visible {
+      opacity: 1;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #1a73e8;
+      font-weight: 600;
+      padding: 10px 24px;
+      border: 2px solid #1a73e8;
+      border-radius: 8px;
+      transition: all 0.2s ease-in-out;
+      flex-shrink: 0;
+    }
+
+    .nav a:hover {
+      background-color: #1a73e8;
+      color: #fff;
+    }
+
+    .nav a.active {
+      background-color: #1a73e8;
+      color: white;
+    }
+
+    /* 內容區 */
+    .content {
+      margin: 40px auto;
+      max-width: 900px;
+      padding: 0 16px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        gap: 8px;
+        padding: 10px;
+      }
+      .nav a {
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+      iframe {
+        height: 600px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 導覽列會自動載入 -->
+  <div id="navbar"></div>
+
+  <div class="content">
+    <h2>📋 資訊安全教育訓練｜課後測驗</h2>
+
+    <!-- ✅ 在這裡貼上你的 Google 表單嵌入連結 -->
+    <iframe 
+      src="https://forms.gle/r1CzfJHsuXq3rvN18" 
+      allowfullscreen>
+      載入中…
+    </iframe>
+  </div>
+
+  <script>
+    // 載入共用導覽列 + 淡入動畫 + 錯誤保護
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(html => {
+        const navbar = document.getElementById("navbar");
+        navbar.innerHTML = html;
+        const nav = navbar.querySelector(".nav");
+        if (nav) setTimeout(() => nav.classList.add("visible"), 50);
+      })
+      .catch(() => {
+        document.getElementById("navbar").innerHTML = 
+          "<p style='color:red;'⚠️ 導覽列載入失敗</p>";
+      });
+  </script>
+
+</body>
+</html>
